@@ -13,7 +13,7 @@ require (
 	hodgemix v0.0.0
 )
 
-replace hodgemix => ../hodgemix-go
+replace hodgemix => github.com/EncryptidSystems/hodgemix v0.0.0-20261121173650-c953ec6a9b48
 
 replace embeddb => ../EmbedDB
 

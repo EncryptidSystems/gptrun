@@ -2,7 +2,7 @@
 #
 #   pwsh .\release.ps1 -Release 0.3.0
 #
-# Steps: refuse uncommitted changes (ModelRun and ../hodgemix-go) unless
+# Steps: refuse uncommitted changes (ModelRun and the hodgemix checkout) unless
 # -AllowDirty; go vet and the unit tests; the GPU tests when MODELRUN_GOLDEN
 # names a checkpoint (skip with -SkipGpu); rebuild dawnrt.exe when rt.cc is
 # newer; build gptrun.exe stamped with the release; copy dawnrt and its DLLs;
@@ -23,7 +23,7 @@ function Run($what, [scriptblock]$block) {
     if ($LASTEXITCODE -ne 0) { throw "$what failed (exit $LASTEXITCODE)" }
 }
 
-# Dependencies the module replaces with sibling folders.
+# Sibling checkouts. hodgemix is https://github.com/EncryptidSystems/hodgemix.
 $hodgemix = Join-Path (Split-Path $root) 'hodgemix-go'
 $embeddb = Join-Path (Split-Path $root) 'EmbedDB'
 

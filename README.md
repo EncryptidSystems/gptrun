@@ -8,7 +8,7 @@ Commands the model asks for run in the TunnelTug guest. They do not run on this 
 
 ## Build
 
-Go 1.24. The module replaces `hodgemix` with a checkout at `../hodgemix-go` and `embeddb` with `../EmbedDB`.
+Go 1.24. Pull [hodgemix](https://github.com/EncryptidSystems/hodgemix) and build against that module. `embeddb` is the checkout at `../EmbedDB`. gptrun does not replace hodgemix.
 
 Every build knows what it is: `gptrun version` prints the commit it was built from, `+dirty` when the tree had uncommitted changes. The chat screen shows it next to Ready, and warns when `gptrun.exe` is older than the source beside it.
 
@@ -43,7 +43,7 @@ $env:MODELRUN_GOLDEN = 'C:\path\to\model.bnz.yaml'
 pwsh .\release.ps1 -Release 0.3.0
 ```
 
-The script refuses uncommitted changes in ModelRun or `../hodgemix-go` (`-AllowDirty` overrides), runs `go vet`, the unit tests and the GPU tests (`-SkipGpu` skips those), rebuilds `dawnrt.exe` when `rt.cc` is newer, and writes `dist\gptrun-<release>.zip`: `gptrun.exe` stamped with the release, `dawnrt\` with its DLLs, and `manifest.txt` with the commits, a hash of each dependency tree, and every file's SHA-256. `EmbedDB` is not a git repository, so the manifest records its tree hash only. A release finds `dawnrt` beside `gptrun.exe`.
+The script refuses uncommitted changes in ModelRun or the hodgemix checkout at `../hodgemix-go` (`-AllowDirty` overrides), runs `go vet`, the unit tests and the GPU tests (`-SkipGpu` skips those), rebuilds `dawnrt.exe` when `rt.cc` is newer, and writes `dist\gptrun-<release>.zip`: `gptrun.exe` stamped with the release, `dawnrt\` with its DLLs, and `manifest.txt` with the commits, a hash of each dependency tree, and every file's SHA-256. `EmbedDB` is not a git repository, so the manifest records its tree hash only. A release finds `dawnrt` beside `gptrun.exe`.
 
 ### Accuracy
 
