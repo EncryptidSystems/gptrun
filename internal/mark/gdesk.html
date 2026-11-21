@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07090d">
+<title>g</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #07090d;
+    --ink: #ece7df;
+    --muted: #8e96a3;
+    --faint: #5e6673;
+    --copper: #e8a87c;
+    --blue: #7eb6e8;
+    --line: rgba(232, 168, 124, 0.22);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background:
+      radial-gradient(900px 480px at 100% -10%, rgba(232, 168, 124, 0.16), transparent 55%),
+      var(--bg);
+    color: var(--ink);
+    font: 15px/1.5 "Segoe UI", system-ui, sans-serif;
+  }
+  header {
+    position: sticky; top: 0; z-index: 2;
+    height: 58px; display: flex; align-items: center; gap: 14px;
+    padding: 0 22px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(7, 9, 13, 0.82);
+  }
+  .logo { letter-spacing: 0.18em; font-size: 12px; font-weight: 700; color: var(--copper); }
+  .product { font-size: 16px; font-weight: 650; }
+  header .status { margin-left: auto; color: var(--muted); font-size: 12px; }
+  main { padding: 22px; max-width: 1100px; }
+  h1 { font-size: 1.7rem; margin: 0 0 0.35rem; font-weight: 650; }
+  .lead { max-width: 68ch; margin: 0 0 1.1rem; color: var(--ink); }
+  .nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 18px; }
+  .nums div {
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 14px;
+    padding: 12px 14px; background: rgba(255,255,255,0.03);
+  }
+  .nums b { display: block; font-size: 1.55rem; font-weight: 650; }
+  .nums span { color: var(--muted); font-size: 13px; }
+  .nums .hi b { color: var(--copper); }
+  .nums .lo b { color: var(--blue); }
+  section { margin: 0 0 22px; }
+  h2 { font-size: 0.95rem; margin: 0 0 0.4rem; font-weight: 650; }
+  .note { color: var(--muted); font-size: 13px; margin: 0.3rem 0 0; }
+  #mask { display: flex; gap: 3px; align-items: flex-end; height: 72px; }
+  #mask i {
+    flex: 1; display: block; border-radius: 2px 2px 0 0; min-width: 0;
+    background: var(--faint);
+  }
+  #mask i.plus { background: var(--copper); align-self: flex-end; }
+  #mask i.minus { background: var(--blue); align-self: flex-start; border-radius: 0 0 2px 2px; }
+  #mask i.dot { height: 3px !important; align-self: center; background: var(--faint); }
+  canvas { width: 100%; height: 280px; display: block; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); }
+  .legend { display: flex; gap: 16px; color: var(--muted); font-size: 12.5px; margin: 8px 0 0; }
+  .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 6px; }
+  .legend .g { background: var(--copper); }
+  .legend .b { background: rgba(142, 150, 163, 0.85); }
+  form { display: flex; gap: 8px; }
+  input {
+    flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 10px 12px;
+  }
+  button {
+    background: rgba(232, 168, 124, 0.14); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; cursor: pointer;
+  }
+  #lookup { margin: 10px 0 0; font-size: 1.25rem; }
+  #lookup em { font-style: normal; color: var(--copper); }
+  .words { display: flex; flex-wrap: wrap; gap: 6px; max-height: 320px; overflow: auto; padding-right: 4px; }
+  .words span {
+    border-radius: 999px; padding: 2px 8px; font-size: 13px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  th { color: var(--muted); font-weight: 550; }
+  .extract dl { margin: 0 0 12px; }
+  .extract div.row { display: grid; grid-template-columns: 7.5rem 1fr; gap: 8px 16px; margin: 0 0 8px; align-items: baseline; }
+  .extract dt { color: var(--muted); font-size: 13px; }
+  .extract dd { margin: 0; font-family: ui-monospace, Consolas, monospace; font-size: 15px; word-break: break-all; }
+  .extract dd.key { font-size: 1.7rem; font-family: "Segoe UI", system-ui, sans-serif; font-weight: 650; color: var(--ink); }
+  @media (max-width: 720px) { .nums { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">ENCRYPTID</div>
+  <div class="product">g</div>
+  <div class="status" id="status">loading</div>
+</header>
+<main>
+  <h1>Extracted key</h1>
+  <p class="lead">Six Gemini poems on the 2b4t vocabulary cochain. This is the <code>cochainkey</code> result. No provider key.</p>
+  <section class="extract">
+    <div class="row"><dt>key</dt><dd class="key" id="key">—</dd></div>
+    <div class="row"><dt>code</dt><dd id="code">—</dd></div>
+    <div class="row"><dt>mask</dt><dd id="maskText">—</dd></div>
+    <div class="row"><dt>agreed</dt><dd id="agreedLine">—</dd></div>
+    <div class="row"><dt>cell 63</dt><dd id="cell63">—</dd></div>
+    <div class="row"><dt>set bits</dt><dd id="bits">—</dd></div>
+    <div id="mask"></div>
+    <p class="note">Copper is a shared plus. Blue is a shared minus. A gap is a cell where the poems disagree. A set bit is a shared plus in cells 0 through 62.</p>
+  </section>
+  <h2>g(w) against that mask</h2>
+  <p class="lead">g(w) is the cosine of a word's centered row with the mask above.</p>
+  <div class="nums">
+    <div class="hi"><b id="poemMean">—</b><span id="poemCap">poem words</span></div>
+    <div class="lo"><b id="baseMean">—</b><span id="baseCap">other vocabulary words</span></div>
+    <div><b id="agreed">—</b><span>cells agreed</span></div>
+  </div>
+  <section>
+    <h2>Where the words sit</h2>
+    <canvas id="hist" width="1040" height="280"></canvas>
+    <div class="legend"><span><i class="g"></i>words in the poems</span><span><i class="b"></i>other vocabulary words</span></div>
+  </section>
+  <section>
+    <h2>Score a word</h2>
+    <form id="ask">
+      <input id="q" name="w" autocomplete="off" placeholder="willow" aria-label="word">
+      <button type="submit">Score</button>
+    </form>
+    <p id="lookup"></p>
+  </section>
+  <section>
+    <h2>Words in the poems</h2>
+    <div class="words" id="words"></div>
+  </section>
+  <section>
+    <h2>Each poem</h2>
+    <table>
+      <thead><tr><th>Text</th><th>Words</th><th>Cell share</th><th>Null</th><th>Marked</th><th>Key</th></tr></thead>
+      <tbody id="poems"></tbody>
+    </table>
+  </section>
+</main>
+<script>
+const status = document.getElementById("status");
+function color(g) {
+  const t = Math.max(-1, Math.min(1, g / 0.65));
+  if (t >= 0) return "rgba(232,168,124," + (0.25 + 0.75 * t) + ")";
+  return "rgba(126,182,232," + (0.25 + 0.75 * -t) + ")";
+}
+function draw(s) {
+  const c = document.getElementById("hist");
+  const dpr = window.devicePixelRatio || 1;
+  const w = c.clientWidth || 1040;
+  c.width = Math.floor(w * dpr);
+  c.height = Math.floor(280 * dpr);
+  const g = c.getContext("2d");
+  g.scale(dpr, dpr);
+  const W = w, H = 280, pad = 36;
+  const bins = s.bins, n = bins.length;
+  const pw = (W - pad * 2) / n;
+  const pden = s.poemHist.map((v, i) => s.poemN ? v / s.poemN : 0);
+  const bden = s.baseHist.map((v, i) => s.baseN ? v / s.baseN : 0);
+  let max = 0.01;
+  pden.concat(bden).forEach(v => { if (v > max) max = v; });
+  g.clearRect(0, 0, W, H);
+  g.font = "12px Segoe UI, system-ui, sans-serif";
+  g.fillStyle = "#8e96a3";
+  g.textAlign = "center";
+  const zero = bins.findIndex(b => b >= 0);
+  for (let i = 0; i < n; i++) {
+    const x = pad + i * pw;
+    const bh = (bden[i] / max) * (H - 58);
+    const ph = (pden[i] / max) * (H - 58);
+    g.fillStyle = "rgba(142,150,163,0.45)";
+    g.fillRect(x + 1, H - 28 - bh, Math.max(1, pw - 3), bh);
+    g.fillStyle = "#e8a87c";
+    g.fillRect(x + pw * 0.28, H - 28 - ph, Math.max(1, pw * 0.46), ph);
+  }
+  if (zero >= 0) {
+    g.strokeStyle = "rgba(236,231,223,0.35)";
+    g.beginPath();
+    g.moveTo(pad + zero * pw, 12);
+    g.lineTo(pad + zero * pw, H - 28);
+    g.stroke();
+  }
+  g.fillStyle = "#8e96a3";
+  [0, Math.floor(n / 2), n - 1].forEach(i => {
+    g.fillText(bins[i].toFixed(2), pad + i * pw + pw / 2, H - 8);
+  });
+}
+function mask(s) {
+  const box = document.getElementById("mask");
+  box.innerHTML = "";
+  for (const ch of s.mask) {
+    const i = document.createElement("i");
+    i.title = ch;
+    if (ch === "+") { i.className = "plus"; i.style.height = "48px"; }
+    else if (ch === "-") { i.className = "minus"; i.style.height = "48px"; }
+    else { i.className = "dot"; }
+    box.appendChild(i);
+  }
+}
+async function main() {
+  const s = await (await fetch("/api/g")).json();
+  status.textContent = s.poemN + " poem words";
+  document.getElementById("poemMean").textContent = s.poemMean.toFixed(3);
+  document.getElementById("poemCap").textContent = s.poemN + " poem words · " + Math.round(s.poemPos * 100) + "% positive";
+  document.getElementById("baseMean").textContent = s.baseMean.toFixed(3);
+  document.getElementById("baseCap").textContent = s.baseN + " other words · " + Math.round(s.basePos * 100) + "% positive";
+  document.getElementById("agreed").textContent = s.agreed + " / " + s.cells;
+  const side = s.cell63 < 0 ? "minus" : (s.cell63 > 0 ? "plus" : "open");
+  document.getElementById("key").textContent = s.key;
+  document.getElementById("code").textContent = s.code;
+  document.getElementById("maskText").textContent = s.mask;
+  document.getElementById("agreedLine").textContent = s.agreed + " of " + s.cells;
+  document.getElementById("cell63").textContent = side;
+  const bits = [];
+  for (let i = 0; i < s.mask.length && i < 63; i++) if (s.mask[i] === "+") bits.push(i);
+  document.getElementById("bits").textContent = bits.join(", ");
+  mask(s);
+  draw(s);
+  window.addEventListener("resize", () => draw(s));
+  const words = document.getElementById("words");
+  for (const w of s.words) {
+    const el = document.createElement("span");
+    el.textContent = w.w + " " + w.g.toFixed(2);
+    el.style.background = color(w.g);
+    words.appendChild(el);
+  }
+  const body = document.getElementById("poems");
+  for (const p of s.poems) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = "<td>" + p.name + "</td><td>" + p.words + "</td><td>" + p.share.toFixed(3) +
+      "</td><td>" + p.null.toFixed(3) + "</td><td>" + (p.marked ? "yes" : "no") +
+      "</td><td>" + p.hits + "/" + p.agreed + "</td>";
+    body.appendChild(tr);
+  }
+  document.getElementById("ask").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const w = document.getElementById("q").value.trim();
+    if (!w) return;
+    const r = await (await fetch("/api/word?w=" + encodeURIComponent(w))).json();
+    const out = document.getElementById("lookup");
+    if (!r.ok) { out.textContent = w + " is not a letter word"; return; }
+    out.innerHTML = r.w + "  <em>" + r.g.toFixed(3) + "</em>";
+  });
+}
+main().catch(err => { status.textContent = err.message; });
+</script>
+</body>
+</html>

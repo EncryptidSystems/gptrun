@@ -1,0 +1,11 @@
+*.exe
+*.exe~
+*.dll
+*.obj
+dist/
+eval/results/
+eval/public/
+backup/
+hes-papers/
+hes-runs/
+/gptrun
